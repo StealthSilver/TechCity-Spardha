@@ -1,0 +1,15 @@
+export default function GradientField({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <div className={`gradient-field ${className}`} aria-hidden="true">
+      <div className="gradient-orb gradient-orb-a" />
+      <div className="gradient-orb gradient-orb-b" />
+      <div className="gradient-orb gradient-orb-c" />
+      <div className="gradient-shade" />
+      <div className="gradient-noise" />
+    </div>
+  );
+}
