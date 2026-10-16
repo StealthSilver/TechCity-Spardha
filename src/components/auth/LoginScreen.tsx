@@ -5,7 +5,7 @@ import GradientField from "@/components/GradientField";
 import { AuthPanel } from "@/components/auth/AuthPanel";
 
 export function LoginScreen() {
-  const [view, setView] = useState<"register" | "login">("register");
+  const [view, setView] = useState<"register" | "login">("login");
 
   return (
     <main className="relative isolate flex flex-1 overflow-hidden">
