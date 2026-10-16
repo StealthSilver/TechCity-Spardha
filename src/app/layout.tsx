@@ -15,13 +15,72 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
+
+const title = "Spardha — Technical assessments for TechCity students";
+const description =
+  "A technical assessment for TechCity students. Data structures is open now, with multiple choice, code submission, an instant score, and a certificate. AI/ML, cloud computing, and other assessments will follow.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Spardha — Computer-based assessments by TechCity",
+    default: title,
     template: "%s — Spardha",
   },
-  description:
-    "TechCity students sit data structures assessments here: multiple choice, code submission, an instant score, and a certificate when the paper is complete.",
+  description,
+  applicationName: "Spardha",
+  keywords: [
+    "Spardha",
+    "TechCity",
+    "technical assessment",
+    "data structures",
+    "student assessment",
+    "coding assessment",
+  ],
+  authors: [{ name: "TechCity" }],
+  creator: "TechCity",
+  publisher: "TechCity",
+  category: "education",
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: "/logo.png",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "/",
+    siteName: "Spardha",
+    title,
+    description,
+    images: [
+      {
+        url: "/logo.png",
+        width: 945,
+        height: 921,
+        alt: "Spardha logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+    images: [
+      {
+        url: "/logo.png",
+        alt: "Spardha logo",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {

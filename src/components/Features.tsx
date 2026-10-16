@@ -4,7 +4,7 @@ const features = [
   {
     index: "01",
     title: "Levels of questions",
-    body: "Questions follow the four papers: Data Structures 1, 2, 3, and 4, so a sitting matches the module a student has reached.",
+    body: "The data structures assessment open now follows four papers — 1, 2, 3, and 4 — so a sitting matches the module a student has reached.",
   },
   {
     index: "02",
@@ -40,8 +40,8 @@ export default function Features() {
         <div className="max-w-2xl">
           <SectionHeading title="What a student can do in one sitting." />
           <p className="mt-5 max-w-xl text-[15px] leading-7 text-foreground/65">
-            A data structures paper holds both kinds of work the class trains
-            for: a chosen answer, and code that has to run.
+            A technical assessment holds the work the class trains for. Data
+            structures is open now: a chosen answer, and code that has to run.
           </p>
         </div>
 

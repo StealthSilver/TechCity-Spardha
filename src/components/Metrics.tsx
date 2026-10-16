@@ -33,7 +33,7 @@ export default function Metrics() {
             titleClassName="max-w-xl text-[2rem] sm:text-[2.45rem]"
           />
           <p className="mt-5 max-w-xl text-[15px] leading-7 text-foreground/65">
-            A data structures sitting is more than a single figure. The score,
+            A technical assessment is more than a single figure. The score,
             the time, the earlier attempts, and a certificate are all part of
             the same result.
           </p>
@@ -43,9 +43,9 @@ export default function Metrics() {
           {outcomes.map((item) => (
             <li
               key={item.label}
-              className="grid border-b border-foreground/10 last:border-b-0 sm:grid-cols-[8.5rem_minmax(0,1fr)]"
+              className="grid border-b border-foreground/10 last:border-b-0 sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:items-stretch"
             >
-              <div className="flex items-start border-b border-foreground/10 bg-accent/[0.06] px-5 py-4 sm:border-b-0 sm:border-r sm:px-6 sm:py-8">
+              <div className="flex items-center border-b border-foreground/10 bg-accent/[0.06] px-5 py-4 sm:border-b-0 sm:border-r sm:px-6">
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
                   {item.label}
                 </p>

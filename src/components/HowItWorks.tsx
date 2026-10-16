@@ -34,7 +34,7 @@ const steps: {
   {
     index: "02",
     title: "Open the paper",
-    body: "The data structures paper for your module is waiting, with a clock and its topics.",
+    body: "The assessment assigned to your module is waiting, with a clock and its topics. Data structures is the one open now.",
     label: "A laptop. The lid opens on its hinge.",
     Figure: Laptop,
   },
@@ -61,7 +61,7 @@ export default function HowItWorks() {
       className="scroll-mt-24 border-t border-foreground/10"
     >
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
-        <SectionHeading title="Four steps from the data structures class to a score." />
+        <SectionHeading title="Four steps from the classroom to a score." />
 
         <ol className="mt-12 grid gap-px bg-foreground/10 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step) => (

@@ -29,9 +29,9 @@ export default function About() {
               titleClassName="max-w-lg text-[2rem] sm:text-[2.45rem]"
             />
             <p className="mt-5 max-w-md text-[15px] leading-7 text-foreground/65">
-              TechCity runs the classroom. Spardha is the computer sitting
-              beside it: an assigned paper, questions at the student’s level,
-              and a result the same day.
+              TechCity runs the classroom. Spardha is the technical assessment
+              beside it: an assigned sitting, questions at the student’s level,
+              and a result the same day. Data structures is available now.
             </p>
           </div>
 

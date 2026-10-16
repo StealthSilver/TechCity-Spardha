@@ -8,7 +8,7 @@ import { ProfileMenu } from "@/components/ProfileMenu";
 
 const links = [
   { href: "/#about", label: "About" },
-  { href: "/#how-it-works", label: "How it works" },
+  { href: "/#how-it-works", label: "Working" },
   { href: "/#features", label: "Features" },
   { href: "/#assessments", label: "Assessments" },
   { href: "/#results", label: "Results" },
@@ -78,7 +78,7 @@ export function Navbar() {
             <button
               type="button"
               className="hidden h-8 items-center bg-accent px-4 text-[13px] font-medium text-on-accent transition-colors hover:bg-accent/90 lg:inline-flex"
-              onClick={() => openAuth("register")}
+              onClick={() => openAuth("login")}
             >
               Login
             </button>
@@ -158,7 +158,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => {
                   closeMenu();
-                  openAuth("register");
+                  openAuth("login");
                 }}
                 className="inline-flex h-10 w-full items-center justify-center bg-accent text-[13px] font-medium text-on-accent"
               >
