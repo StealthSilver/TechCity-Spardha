@@ -1,4 +1,4 @@
-import CtaLink from "@/components/CtaLink";
+import CtaLink from "@/components/landing/CtaLink";
 
 export default function ClosingCta() {
   return (

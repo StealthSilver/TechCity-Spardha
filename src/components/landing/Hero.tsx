@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
-import CtaLink from "@/components/CtaLink";
-import GradientField from "@/components/GradientField";
-import HeroPaper from "@/components/HeroPaper";
+import CtaLink from "@/components/landing/CtaLink";
+import GradientField from "@/components/landing/GradientField";
+import HeroPaper from "@/components/landing/HeroPaper";
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
               Login to begin
             </CtaLink>
             <a
-              href="/#assessments"
+              href="/#assessment"
               className="inline-flex h-10 items-center border border-foreground/15 px-5 text-[15px] text-foreground transition-colors hover:border-foreground/40"
             >
               See the assessments

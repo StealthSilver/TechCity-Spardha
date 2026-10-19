@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import GradientField from "@/components/GradientField";
+import GradientField from "@/components/landing/GradientField";
 import { AuthPanel } from "@/components/auth/AuthPanel";
 
 export function LoginScreen() {

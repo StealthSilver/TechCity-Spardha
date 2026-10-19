@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { SettingsScreen } from "@/components/SettingsScreen";
+import { ComingSoon } from "@/components/portal/ComingSoon";
 
 export const metadata: Metadata = {
   title: "Settings",
 };
 
 export default function SettingsPage() {
-  return <SettingsScreen />;
+  return <ComingSoon title="Settings" />;
 }

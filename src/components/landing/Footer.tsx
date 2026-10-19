@@ -37,12 +37,17 @@ export default function Footer() {
 
       <div className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-5 text-[12px] text-foreground/45 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>TechCity Hub, Level 4, Cyber City 400001</p>
           <a
-            href="mailto:hello@techcityskills.com"
+            href="mailto:techcityskillspvt.ltd@gmail.com"
             className="underline decoration-foreground/20 underline-offset-4 transition-colors hover:text-foreground"
           >
-            hello@techcityskills.com
+            techcityskillspvt.ltd@gmail.com
+          </a>
+          <a
+            href="tel:+919650657821"
+            className="transition-colors hover:text-foreground"
+          >
+            9650657821
           </a>
         </div>
       </div>

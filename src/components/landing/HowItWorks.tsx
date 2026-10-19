@@ -6,7 +6,7 @@ import {
   Terminal,
   type HairlineProps,
 } from "@lucasmarkes/hairline/react";
-import SectionHeading from "@/components/SectionHeading";
+import SectionHeading from "@/components/landing/SectionHeading";
 
 const figureStyle = {
   "--hairline-plate": "var(--background)",

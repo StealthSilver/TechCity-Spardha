@@ -71,9 +71,6 @@ export function ProfileMenu() {
         >
           <div className="border-b border-foreground/10 px-3 py-2.5">
             <p className="truncate text-sm text-foreground">{student.name}</p>
-            <p className="mt-1 truncate font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/45">
-              {student.email}
-            </p>
           </div>
           <Link
             href="/profile"

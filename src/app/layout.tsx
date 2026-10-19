@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 import { AuthProvider } from "@/components/auth/AuthProvider";
-import { Navbar } from "@/components/Navbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -96,7 +95,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
         <AuthProvider>
-          <Navbar />
           {children}
           <AuthDialog />
         </AuthProvider>

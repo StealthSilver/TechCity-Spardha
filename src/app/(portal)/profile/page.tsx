@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { ProfileScreen } from "@/components/ProfileScreen";
+import { ComingSoon } from "@/components/portal/ComingSoon";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
 export default function ProfilePage() {
-  return <ProfileScreen />;
+  return <ComingSoon title="Profile" />;
 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
-import { ProfileMenu } from "@/components/ProfileMenu";
+import { ProfileMenu } from "@/components/shell/ProfileMenu";
 
 const links = [
   { href: "/#about", label: "About" },
@@ -42,7 +42,11 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:h-[4.25rem] sm:px-8">
-        <Link href="/" className="flex shrink-0 items-baseline gap-2.5" aria-label="Spardha home">
+        <Link
+          href={student ? "/dashboard" : "/"}
+          className="flex shrink-0 items-baseline gap-2.5"
+          aria-label={student ? "Dashboard" : "Spardha home"}
+        >
           <Image
             src="/logo.png"
             alt=""
