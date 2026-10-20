@@ -54,28 +54,28 @@ const features = [
 export default function Features() {
   return (
     <section id="features" className="scroll-mt-24 border-t border-accent/10 bg-background">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <div className="max-w-2xl">
           <SectionHeading title="What a student can do in one sitting." />
-          <p className="mt-5 max-w-xl text-[15px] leading-7 text-foreground/65">
+          <p className="mt-4 max-w-xl text-[15px] leading-7 text-foreground/65 sm:mt-5">
             A technical assessment holds the work the class trains for. Data
             structures is open now: a chosen answer, and code that has to run.
           </p>
         </div>
 
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-3 sm:mt-12 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, i) => (
             <li
               key={feature.index}
-              className={`border px-5 py-6 sm:px-6 ${featureTones[i]}`}
+              className={`border px-4 py-5 sm:px-6 sm:py-6 ${featureTones[i]}`}
             >
               <p className={`font-mono text-[11px] tracking-[0.16em] ${indexColors[i]}`}>
                 {feature.index}
               </p>
-              <h3 className="mt-4 text-[1.15rem] tracking-tight text-foreground">
+              <h3 className="mt-3 text-[1.1rem] tracking-tight text-foreground sm:mt-4 sm:text-[1.15rem]">
                 {feature.title}
               </h3>
-              <p className="mt-3 text-[15px] leading-6 text-foreground/60">
+              <p className="mt-2 text-[15px] leading-6 text-foreground/60 sm:mt-3">
                 {feature.body}
               </p>
             </li>

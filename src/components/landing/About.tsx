@@ -24,14 +24,14 @@ const points = [
 export default function About() {
   return (
     <section id="about" className="scroll-mt-24 border-t border-accent/10 bg-background">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-20 lg:py-[4.5rem]">
+        <div className="grid items-start gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl lg:pt-1">
             <SectionHeading
               title="Training shows the work. The assessment shows what stayed."
-              titleClassName="max-w-lg text-[2rem] sm:text-[2.45rem]"
+              titleClassName="max-w-lg text-[1.7rem] sm:text-[2.45rem]"
             />
-            <p className="mt-5 max-w-md text-[15px] leading-7 text-foreground/65">
+            <p className="mt-4 max-w-md text-[15px] leading-7 text-foreground/65 sm:mt-5">
               TechCity runs the classroom. The technical assessment sits beside
               it: an assigned sitting, questions at the student’s level, and a
               result the same day. Data structures is available now.
@@ -41,14 +41,14 @@ export default function About() {
           <AboutScene />
         </div>
 
-        <ul className="mt-14 grid gap-4 md:grid-cols-3">
+        <ul className="mt-10 grid gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
           {points.map((point) => (
             <li
               key={point.title}
-              className={`${point.tone} border border-foreground/8 px-5 py-6 sm:px-6`}
+              className={`${point.tone} border border-foreground/8 px-4 py-5 sm:px-6 sm:py-6`}
             >
               <point.icon />
-              <h3 className="mt-5 text-[1.05rem] tracking-tight text-foreground">
+              <h3 className="mt-4 text-[1.05rem] tracking-tight text-foreground sm:mt-5">
                 {point.title}
               </h3>
               <p className="mt-2 max-w-[16rem] text-[15px] leading-6 text-foreground/60">
@@ -65,11 +65,11 @@ export default function About() {
 function AboutScene() {
   return (
     <figure
-      className="border border-accent/15 bg-gradient-to-br from-surface-tint via-background to-surface-mint px-5 py-6 sm:px-7"
+      className="border border-accent/15 bg-gradient-to-br from-surface-tint via-background to-surface-mint px-3 py-5 sm:px-7 sm:py-6"
       aria-label="The classroom and the paper sit side by side."
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)] items-center">
-        <svg viewBox="0 0 160 120" className="h-32 w-full text-foreground" aria-hidden="true">
+      <div className="grid grid-cols-[minmax(0,1fr)_1.25rem_minmax(0,1fr)] items-center sm:grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)]">
+        <svg viewBox="0 0 160 120" className="h-24 w-full text-foreground sm:h-32" aria-hidden="true">
           <rect x="1" y="1" width="158" height="118" fill="none" stroke="currentColor" strokeWidth="1.5" />
           <path
             d="M16 28h96M16 44h72M16 60h84"
@@ -88,7 +88,7 @@ function AboutScene() {
           <span className="h-px w-full bg-gradient-to-r from-accent via-accent-secondary to-accent-tertiary" />
         </div>
 
-        <svg viewBox="0 0 160 120" className="h-32 w-full text-foreground" aria-hidden="true">
+        <svg viewBox="0 0 160 120" className="h-24 w-full text-foreground sm:h-32" aria-hidden="true">
           <rect x="1" y="1" width="158" height="118" fill="none" stroke="currentColor" strokeWidth="1.5" />
           <path d="M1 22h158" stroke="currentColor" strokeOpacity="0.25" />
           <circle cx="14" cy="11.5" r="2.5" fill="var(--accent)" fillOpacity="0.7" />
@@ -103,7 +103,7 @@ function AboutScene() {
         </svg>
       </div>
 
-      <figcaption className="mt-4 grid grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)] font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/45">
+      <figcaption className="mt-3 grid grid-cols-[minmax(0,1fr)_1.25rem_minmax(0,1fr)] font-mono text-[9px] uppercase tracking-[0.14em] text-foreground/45 sm:mt-4 sm:grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)] sm:text-[10px] sm:tracking-[0.16em]">
         <span>Classroom</span>
         <span />
         <span>Paper</span>

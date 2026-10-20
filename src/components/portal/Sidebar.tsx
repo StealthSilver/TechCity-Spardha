@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import type { StudentPublic } from "@/lib/student";
 
@@ -16,7 +16,7 @@ const links = [
   { href: "/settings", label: "Settings", icon: "settings" },
 ] as const;
 
-type IconName = (typeof links)[number]["icon"] | "logout" | "collapse";
+type IconName = (typeof links)[number]["icon"] | "logout" | "collapse" | "menu";
 
 function Icon({ name }: { name: IconName }) {
   const common = {
@@ -90,6 +90,12 @@ function Icon({ name }: { name: IconName }) {
           <path d="M14.5 6.5 9 12l5.5 5.5" />
         </svg>
       );
+    case "menu":
+      return (
+        <svg {...common}>
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      );
   }
 }
 
@@ -99,25 +105,60 @@ function initials(name: string) {
 }
 
 const storageKey = "spardha-sidebar";
+const sidebarListeners = new Set<() => void>();
 
-export function Sidebar({ student }: { student: StudentPublic }) {
+function subscribeSidebar(listener: () => void) {
+  sidebarListeners.add(listener);
+  return () => {
+    sidebarListeners.delete(listener);
+  };
+}
+
+function getSidebarCollapsed() {
+  return window.localStorage.getItem(storageKey) === "collapsed";
+}
+
+function getSidebarCollapsedServer() {
+  return false;
+}
+
+function setSidebarCollapsed(next: boolean) {
+  window.localStorage.setItem(storageKey, next ? "collapsed" : "open");
+  sidebarListeners.forEach((listener) => listener());
+}
+
+export function Sidebar({
+  student,
+  mobileOpen,
+  onMobileClose,
+}: {
+  student: StudentPublic;
+  mobileOpen: boolean;
+  onMobileClose: () => void;
+}) {
   const pathname = usePathname();
   const { logout } = useAuth();
-  const [collapsed, setCollapsed] = useState(false);
+  const collapsed = useSyncExternalStore(
+    subscribeSidebar,
+    getSidebarCollapsed,
+    getSidebarCollapsedServer,
+  );
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (window.localStorage.getItem(storageKey) === "collapsed") {
-      setCollapsed(true);
-    }
-  }, []);
+    onMobileClose();
+  }, [pathname, onMobileClose]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   function toggle() {
-    setCollapsed((value) => {
-      const next = !value;
-      window.localStorage.setItem(storageKey, next ? "collapsed" : "open");
-      return next;
-    });
+    setSidebarCollapsed(!collapsed);
   }
 
   async function onLogout() {
@@ -130,15 +171,169 @@ export function Sidebar({ student }: { student: StudentPublic }) {
   }
 
   return (
-    <aside
-      className={`sticky top-0 flex h-svh shrink-0 flex-col border-r border-foreground/10 bg-background motion-safe:transition-[width] motion-safe:duration-300 ${
-        collapsed ? "w-[4.5rem]" : "w-60"
-      }`}
-    >
-      <div className={`flex h-16 items-center border-b border-foreground/10 ${collapsed ? "justify-center px-2" : "justify-between px-3"}`}>
+    <>
+      <button
+        type="button"
+        className={`fixed inset-0 z-40 bg-foreground/35 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${
+          mobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        aria-label="Close menu"
+        tabIndex={mobileOpen ? 0 : -1}
+        onClick={onMobileClose}
+      />
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 flex h-svh w-[min(18rem,88vw)] shrink-0 flex-col border-r border-foreground/10 bg-background transition-transform duration-300 lg:sticky lg:top-0 lg:z-0 lg:translate-x-0 lg:transition-[width] ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        } ${collapsed ? "lg:w-[4.5rem]" : "lg:w-60"}`}
+      >
+        <div
+          className={`flex h-14 items-center border-b border-foreground/10 sm:h-16 ${
+            collapsed
+              ? "justify-between px-3 lg:justify-center lg:px-2"
+              : "justify-between px-3"
+          }`}
+        >
+          <Link
+            href="/dashboard"
+            className="grid size-11 shrink-0 place-items-center"
+            aria-label="Dashboard"
+            onClick={onMobileClose}
+          >
+            <Image
+              src="/logo.png"
+              alt=""
+              width={945}
+              height={921}
+              className="h-9 w-9 object-contain"
+              priority
+            />
+          </Link>
+          <button
+            type="button"
+            className="grid size-9 place-items-center text-foreground/55 transition-colors hover:text-foreground lg:hidden"
+            aria-label="Close menu"
+            onClick={onMobileClose}
+          >
+            <span className="relative block size-3.5">
+              <span className="absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
+              <span className="absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-current" />
+            </span>
+          </button>
+          {collapsed ? null : (
+            <button
+              type="button"
+              className="hidden size-9 place-items-center text-foreground/55 transition-colors hover:text-foreground lg:grid"
+              aria-label="Collapse sidebar"
+              aria-expanded
+              onClick={toggle}
+            >
+              <Icon name="collapse" />
+            </button>
+          )}
+        </div>
+
+        {collapsed ? (
+          <div className="hidden justify-center border-b border-foreground/10 py-2 lg:flex">
+            <button
+              type="button"
+              className="grid size-9 place-items-center text-foreground/55 transition-colors hover:text-foreground"
+              aria-label="Expand sidebar"
+              aria-expanded={false}
+              onClick={toggle}
+            >
+              <span className="rotate-180">
+                <Icon name="collapse" />
+              </span>
+            </button>
+          </div>
+        ) : null}
+
+        <nav
+          className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-2 py-3"
+          aria-label="Student"
+        >
+          {links.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                title={collapsed ? link.label : undefined}
+                onClick={onMobileClose}
+                className={`flex h-10 items-center gap-3 px-3 text-[13px] transition-colors ${
+                  collapsed ? "lg:justify-center lg:px-0" : ""
+                } ${
+                  active
+                    ? "bg-foreground/[0.05] text-foreground"
+                    : "text-foreground/55 hover:bg-foreground/[0.03] hover:text-foreground"
+                }`}
+              >
+                <Icon name={link.icon} />
+                <span className={collapsed ? "lg:sr-only" : undefined}>{link.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="border-t border-foreground/10 p-2">
+          <div
+            className={`flex items-center gap-3 px-2 py-2 ${
+              collapsed ? "lg:justify-center lg:px-0" : ""
+            }`}
+          >
+            <span className="grid size-8 shrink-0 place-items-center bg-accent text-[11px] font-medium tracking-wide text-on-accent">
+              {initials(student.name)}
+            </span>
+            <span className={`min-w-0 ${collapsed ? "lg:hidden" : ""}`}>
+              <span className="block truncate text-sm text-foreground">{student.name}</span>
+              <span className="mt-0.5 block truncate font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/40">
+                {student.batch}
+              </span>
+            </span>
+          </div>
+          <button
+            type="button"
+            className={`mt-1 flex h-10 w-full items-center gap-3 px-3 text-[13px] text-foreground/55 transition-colors hover:bg-foreground/[0.03] hover:text-foreground disabled:opacity-60 ${
+              collapsed ? "lg:justify-center lg:px-0" : ""
+            }`}
+            disabled={pending}
+            title={collapsed ? "Log out" : undefined}
+            onClick={onLogout}
+          >
+            <Icon name="logout" />
+            <span className={collapsed ? "lg:sr-only" : undefined}>
+              {pending ? "Logging out…" : "Log out"}
+            </span>
+          </button>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+export function PortalTopBar({
+  onMenuOpen,
+  studentName,
+}: {
+  onMenuOpen: () => void;
+  studentName: string;
+}) {
+  return (
+    <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between gap-3 border-b border-foreground/10 bg-background/95 px-4 backdrop-blur-xl sm:h-16 sm:px-6 lg:hidden">
+      <div className="flex min-w-0 items-center gap-3">
+        <button
+          type="button"
+          className="grid size-10 place-items-center border border-foreground/10 text-foreground"
+          aria-label="Open menu"
+          onClick={onMenuOpen}
+        >
+          <Icon name="menu" />
+        </button>
         <Link
           href="/dashboard"
-          className="grid size-11 shrink-0 place-items-center"
+          className="grid size-9 shrink-0 place-items-center"
           aria-label="Dashboard"
         >
           <Image
@@ -146,90 +341,13 @@ export function Sidebar({ student }: { student: StudentPublic }) {
             alt=""
             width={945}
             height={921}
-            className="h-9 w-9 object-contain"
-            priority
+            className="h-8 w-8 object-contain"
           />
         </Link>
-        {collapsed ? null : (
-          <button
-            type="button"
-            className="grid size-9 place-items-center text-foreground/55 transition-colors hover:text-foreground"
-            aria-label="Collapse sidebar"
-            aria-expanded
-            onClick={toggle}
-          >
-            <Icon name="collapse" />
-          </button>
-        )}
       </div>
-
-      {collapsed ? (
-        <div className="flex justify-center border-b border-foreground/10 py-2">
-          <button
-            type="button"
-            className="grid size-9 place-items-center text-foreground/55 transition-colors hover:text-foreground"
-            aria-label="Expand sidebar"
-            aria-expanded={false}
-            onClick={toggle}
-          >
-            <span className="rotate-180">
-              <Icon name="collapse" />
-            </span>
-          </button>
-        </div>
-      ) : null}
-
-      <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-2 py-3" aria-label="Student">
-        {links.map((link) => {
-          const active = pathname === link.href;
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={active ? "page" : undefined}
-              title={collapsed ? link.label : undefined}
-              className={`flex h-10 items-center gap-3 text-[13px] transition-colors ${
-                collapsed ? "justify-center px-0" : "px-3"
-              } ${
-                active
-                  ? "bg-foreground/[0.05] text-foreground"
-                  : "text-foreground/55 hover:bg-foreground/[0.03] hover:text-foreground"
-              }`}
-            >
-              <Icon name={link.icon} />
-              {collapsed ? <span className="sr-only">{link.label}</span> : <span>{link.label}</span>}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className="border-t border-foreground/10 p-2">
-        <div className={`flex items-center gap-3 px-2 py-2 ${collapsed ? "justify-center px-0" : ""}`}>
-          <span className="grid size-8 shrink-0 place-items-center bg-accent text-[11px] font-medium tracking-wide text-on-accent">
-            {initials(student.name)}
-          </span>
-          {collapsed ? null : (
-            <span className="min-w-0">
-              <span className="block truncate text-sm text-foreground">{student.name}</span>
-              <span className="mt-0.5 block truncate font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/40">
-                {student.batch}
-              </span>
-            </span>
-          )}
-        </div>
-        <button
-          type="button"
-          className={`mt-1 flex h-10 w-full items-center gap-3 text-[13px] text-foreground/55 transition-colors hover:bg-foreground/[0.03] hover:text-foreground disabled:opacity-60 ${
-            collapsed ? "justify-center" : "px-3"
-          }`}
-          disabled={pending}
-          title={collapsed ? "Log out" : undefined}
-          onClick={onLogout}
-        >
-          <Icon name="logout" />
-          {collapsed ? <span className="sr-only">Log out</span> : <span>{pending ? "Logging out…" : "Log out"}</span>}
-        </button>
-      </div>
-    </aside>
+      <span className="max-w-[40%] truncate font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/45">
+        {studentName}
+      </span>
+    </header>
   );
 }

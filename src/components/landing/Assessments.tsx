@@ -215,11 +215,11 @@ export default function Assessments() {
       id="assessments"
       className="scroll-mt-24 border-t border-accent/10 bg-background"
     >
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-10">
-          <div className="order-2 max-w-2xl sm:order-1">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-20 lg:py-[4.5rem]">
+        <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-start md:justify-between md:gap-10">
+          <div className="order-2 max-w-2xl md:order-1">
             <SectionHeading title="Data structures is open. More assessments follow." />
-            <p className="mt-5 max-w-xl text-[15px] leading-7 text-foreground/65">
+            <p className="mt-4 max-w-xl text-[15px] leading-7 text-foreground/65 sm:mt-5">
               Choose a subject to read its four papers. Data structures is the
               sitting students can take today. AI-ML and cloud computing are
               listed so the syllabus is visible before those assessments open.
@@ -227,19 +227,21 @@ export default function Assessments() {
           </div>
 
           <div
-            className="order-1 flex shrink-0 flex-wrap justify-end gap-2 sm:order-2"
+            className="order-1 -mx-4 flex shrink-0 gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 md:order-2 md:justify-end [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label="Assessment subjects"
           >
             {subjects.map((subject) => {
               const selected = subject.id === subjectId;
+              const shortLabel =
+                subject.id === "cloud" ? "Cloud" : subject.label;
               return (
                 <button
                   key={subject.id}
                   type="button"
                   role="tab"
                   aria-selected={selected}
-                  className={`border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 focus-visible:outline-none ${
+                  className={`shrink-0 border px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 focus-visible:outline-none sm:px-4 ${
                     selected
                       ? "border-accent bg-accent text-on-accent"
                       : "border-foreground/15 text-foreground/55 hover:border-accent hover:text-accent"
@@ -249,21 +251,22 @@ export default function Assessments() {
                     setOpenIndex(null);
                   }}
                 >
-                  {subject.label}
+                  <span className="sm:hidden">{shortLabel}</span>
+                  <span className="hidden sm:inline">{subject.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        <ul className="mt-8 border-t border-foreground/10">
+        <ul className="mt-6 border-t border-foreground/10 sm:mt-8">
           {papers.map((paper) => {
             const open = openIndex === paper.index;
             return (
               <li key={`${subjectId}-${paper.index}`} className="border-b border-foreground/10">
                 <button
                   type="button"
-                  className="group grid w-full grid-cols-[3.25rem_minmax(0,1fr)_2.25rem] items-center gap-x-4 px-1 py-5 text-left transition-colors duration-200 hover:bg-accent/[0.06] focus-visible:bg-accent/[0.06] focus-visible:outline-none md:grid-cols-[3.25rem_minmax(0,1fr)_auto_2.25rem] md:gap-x-6 md:px-2 md:py-6"
+                  className="group grid w-full grid-cols-[2.5rem_minmax(0,1fr)_2.25rem] items-start gap-x-3 px-0 py-4 text-left transition-colors duration-200 hover:bg-accent/[0.06] focus-visible:bg-accent/[0.06] focus-visible:outline-none sm:grid-cols-[3.25rem_minmax(0,1fr)_2.25rem] sm:gap-x-4 sm:px-1 sm:py-5 md:grid-cols-[3.25rem_minmax(0,1fr)_auto_2.25rem] md:items-center md:gap-x-6 md:px-2 md:py-6"
                   aria-expanded={open}
                   onClick={() =>
                     setOpenIndex((current) =>
@@ -271,14 +274,14 @@ export default function Assessments() {
                     )
                   }
                 >
-                  <span className="self-start pt-1 font-mono text-[11px] tracking-[0.16em] text-accent md:self-center md:pt-0">
+                  <span className="pt-1 font-mono text-[11px] tracking-[0.16em] text-accent md:self-center md:pt-0">
                     {paper.index}
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-[1.15rem] tracking-tight text-foreground transition-colors group-hover:text-accent">
+                    <span className="block text-[1.05rem] tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[1.15rem]">
                       {paper.title}
                     </span>
-                    <span className="mt-1 block max-w-xl text-[15px] leading-6 text-foreground/60">
+                    <span className="mt-1 block max-w-xl text-[14px] leading-6 text-foreground/60 sm:text-[15px]">
                       {paper.line}
                     </span>
                     <span className="mt-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/45 md:hidden">
@@ -297,7 +300,7 @@ export default function Assessments() {
                     <span className="text-foreground">{paper.time}</span>
                   </span>
                   <span
-                    className={`grid size-9 place-items-center justify-self-end border transition-colors duration-200 ${
+                    className={`mt-0.5 grid size-9 place-items-center justify-self-end border transition-colors duration-200 md:mt-0 ${
                       open
                         ? "border-accent bg-accent text-on-accent"
                         : "border-foreground/15 text-foreground/45 group-hover:border-accent group-hover:text-accent"
@@ -312,11 +315,11 @@ export default function Assessments() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <ul className="border-t border-foreground/10 md:ml-[4.75rem]">
+                    <ul className="border-t border-foreground/10 pl-0 sm:pl-0 md:ml-[4.75rem]">
                       {paper.topics.map((topic) => (
                         <li
                           key={topic}
-                          className="border-b border-foreground/10 py-3 text-[15px] text-foreground/75 last:border-b-0"
+                          className="border-b border-foreground/10 py-3 text-[14px] text-foreground/75 last:border-b-0 sm:text-[15px]"
                         >
                           {topic}
                         </li>

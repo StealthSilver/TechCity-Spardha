@@ -47,14 +47,14 @@ export default function CtaLink({
       href={href}
       className={`group inline-flex shrink-0 cursor-pointer items-center font-medium outline-none ${className}`}
     >
-      <span className="relative inline-flex items-center">
+      <span className="relative inline-flex w-full items-center overflow-hidden sm:w-auto sm:overflow-visible">
         <span
           className={`flex origin-left -rotate-45 scale-0 items-center justify-center bg-accent text-on-accent transition-transform duration-700 ease-power4-in-out group-hover:rotate-0 group-hover:scale-100 ${box}`}
         >
           <PlusIcon />
         </span>
         <span
-          className={`inline-flex items-center justify-center bg-accent text-on-accent transition-transform duration-700 ease-power4-in-out group-hover:translate-x-0 ${shift} ${label}`}
+          className={`inline-flex w-full items-center justify-center bg-accent text-on-accent transition-transform duration-700 ease-power4-in-out group-hover:translate-x-0 sm:w-auto ${shift} ${label}`}
         >
           {children}
         </span>

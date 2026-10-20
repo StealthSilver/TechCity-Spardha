@@ -217,16 +217,16 @@ export default function HeroPaper() {
         <div ref={glareRef} className="hero-paper-glare" aria-hidden="true" />
 
         <div className="relative">
-          <div className="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
-            <div>
+          <div className="flex items-start justify-between gap-3 border-b border-foreground/10 pb-3 sm:items-center sm:gap-4 sm:pb-4">
+            <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
                 Paper 02
               </p>
-              <p className="mt-1 text-[15px] tracking-tight text-foreground">
+              <p className="mt-1 text-[14px] tracking-tight text-foreground sm:text-[15px]">
                 Data Structures 2
               </p>
             </div>
-            <p className="text-right font-mono text-[10px] uppercase leading-4 tracking-[0.14em] text-foreground/45">
+            <p className="shrink-0 text-right font-mono text-[9px] uppercase leading-4 tracking-[0.12em] text-foreground/45 sm:text-[10px] sm:tracking-[0.14em]">
               Intermediate
               <span className="mt-1 block tabular-nums text-foreground">
                 {formatClock(seconds)} left
@@ -234,7 +234,7 @@ export default function HeroPaper() {
             </p>
           </div>
 
-          <div className="mt-4 h-px bg-foreground/10">
+          <div className="mt-3 h-px bg-foreground/10 sm:mt-4">
             <div
               className="h-px bg-accent"
               style={{ width: "50%" }}
@@ -242,10 +242,10 @@ export default function HeroPaper() {
             />
           </div>
 
-          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/40">
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/40 sm:mt-4">
             Question 12 of 24 · Multiple choice
           </p>
-          <p className="mt-3 text-lg leading-7 tracking-tight text-foreground">
+          <p className="mt-2 text-base leading-6 tracking-tight text-foreground sm:mt-3 sm:text-lg sm:leading-7">
             Which structure gives constant-time lookup by key?
           </p>
 

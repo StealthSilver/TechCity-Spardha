@@ -60,7 +60,7 @@ export function Navbar() {
             : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:h-[4.25rem] sm:px-8">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:gap-6 sm:px-8">
         <Link
           href={student ? "/dashboard" : "/"}
           className="flex shrink-0 items-center"
@@ -71,18 +71,18 @@ export function Navbar() {
             alt=""
             width={945}
             height={921}
-            className="h-11 w-11 object-contain sm:h-12 sm:w-12"
+            className="h-10 w-10 object-contain sm:h-12 sm:w-12"
             priority
           />
         </Link>
 
-        <div className="flex min-w-0 items-center justify-end gap-5 lg:gap-8">
-          <ul className="hidden items-center gap-6 lg:flex">
+        <div className="flex min-w-0 items-center justify-end gap-3 sm:gap-5 lg:gap-8">
+          <ul className="hidden items-center gap-5 xl:gap-6 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="font-mono text-[12px] uppercase tracking-[0.16em] text-foreground/55 transition-colors hover:text-foreground"
+                  className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/55 transition-colors hover:text-foreground xl:text-[12px]"
                 >
                   {link.label}
                 </a>
@@ -93,7 +93,9 @@ export function Navbar() {
           {loading ? (
             <span className="inline-block size-9 rounded-full bg-foreground/10" aria-hidden="true" />
           ) : student ? (
-            <ProfileMenu />
+            <div className="hidden lg:block">
+              <ProfileMenu />
+            </div>
           ) : (
             <button
               type="button"
@@ -106,7 +108,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="relative grid h-10 w-10 place-items-center border border-foreground/10 text-foreground lg:hidden"
+            className="relative grid h-10 w-10 shrink-0 place-items-center border border-foreground/10 text-foreground lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -133,13 +135,13 @@ export function Navbar() {
         }`}
         aria-hidden={!open}
       >
-        <ul className="flex flex-col gap-1 px-5 py-4">
+        <ul className="flex flex-col gap-1 px-4 py-4 sm:px-5">
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={closeMenu}
-                className="block px-3 py-3 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-foreground"
+                className="block px-3 py-3.5 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-foreground"
               >
                 {link.label}
               </a>
@@ -149,16 +151,23 @@ export function Navbar() {
             {student ? (
               <div className="grid gap-1">
                 <Link
+                  href="/dashboard"
+                  onClick={closeMenu}
+                  className="block px-3 py-3.5 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70"
+                >
+                  Dashboard
+                </Link>
+                <Link
                   href="/profile"
                   onClick={closeMenu}
-                  className="block px-3 py-3 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70"
+                  className="block px-3 py-3.5 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70"
                 >
                   Profile
                 </Link>
                 <Link
                   href="/settings"
                   onClick={closeMenu}
-                  className="block px-3 py-3 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70"
+                  className="block px-3 py-3.5 font-mono text-[12px] uppercase tracking-[0.18em] text-foreground/70"
                 >
                   Settings
                 </Link>
@@ -168,7 +177,7 @@ export function Navbar() {
                     closeMenu();
                     void logout();
                   }}
-                  className="inline-flex h-10 w-full items-center justify-center border border-foreground/15 text-[13px] font-medium text-foreground"
+                  className="inline-flex h-11 w-full items-center justify-center border border-foreground/15 text-[13px] font-medium text-foreground"
                 >
                   Logout
                 </button>
@@ -180,7 +189,7 @@ export function Navbar() {
                   closeMenu();
                   openAuth("login");
                 }}
-                className="inline-flex h-10 w-full items-center justify-center bg-accent text-[13px] font-medium text-on-accent"
+                className="inline-flex h-11 w-full items-center justify-center bg-accent text-[13px] font-medium text-on-accent"
               >
                 Login
               </button>

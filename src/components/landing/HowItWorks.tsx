@@ -79,10 +79,10 @@ export default function HowItWorks() {
       id="how-it-works"
       className="scroll-mt-24 border-t border-accent/10 bg-background"
     >
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <SectionHeading title="Four steps from the classroom to a score." />
 
-        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-8 grid gap-3 sm:mt-12 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
             <li
               key={step.index}
@@ -95,14 +95,14 @@ export default function HowItWorks() {
                 label={step.label}
                 style={figureStyle}
               />
-              <div className="border-t border-foreground/8 px-5 py-6 sm:px-6">
+              <div className="border-t border-foreground/8 px-4 py-5 sm:px-6 sm:py-6">
                 <p className={`font-mono text-[11px] tracking-[0.16em] ${stepColors[i]}`}>
                   {step.index}
                 </p>
-                <h3 className="mt-4 text-[1.15rem] tracking-tight text-foreground">
+                <h3 className="mt-3 text-[1.1rem] tracking-tight text-foreground sm:mt-4 sm:text-[1.15rem]">
                   {step.title}
                 </h3>
-                <p className="mt-3 text-[15px] leading-6 text-foreground/60">
+                <p className="mt-2 text-[15px] leading-6 text-foreground/60 sm:mt-3">
                   {step.body}
                 </p>
               </div>

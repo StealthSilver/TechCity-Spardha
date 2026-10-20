@@ -58,6 +58,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -424,7 +425,7 @@ html[data-theme="light"] .hero-grainient-scrim {
   transform-style: preserve-3d;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
   background: color-mix(in srgb, var(--background) 82%, var(--surface-tint));
-  padding: 1.25rem;
+  padding: 1rem;
   box-shadow:
     0 24px 80px color-mix(in srgb, var(--accent) 18%, transparent),
     0 0 0 1px color-mix(in srgb, var(--foreground) 6%, transparent);
@@ -486,6 +487,12 @@ html[data-theme="light"] .hero-paper {
 @media (min-width: 640px) {
   .hero-paper {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-paper-stage {
+    animation: none;
   }
 }
 
