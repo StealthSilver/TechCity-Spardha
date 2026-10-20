@@ -1,5 +1,23 @@
 import SectionHeading from "@/components/landing/SectionHeading";
 
+const featureTones = [
+  "border-accent/25 bg-surface-tint/80",
+  "border-accent-secondary/25 bg-surface-mint/80",
+  "border-accent-tertiary/25 bg-surface-warm/80",
+  "border-accent/20 bg-background",
+  "border-accent-secondary/20 bg-background",
+  "border-accent-tertiary/20 bg-background",
+] as const;
+
+const indexColors = [
+  "text-accent",
+  "text-accent-secondary",
+  "text-accent-tertiary",
+  "text-accent",
+  "text-accent-secondary",
+  "text-accent-tertiary",
+] as const;
+
 const features = [
   {
     index: "01",
@@ -19,7 +37,7 @@ const features = [
   {
     index: "04",
     title: "Instant result",
-    body: "The score is calculated when the paper is submitted. There is no wait for a manual queue.",
+    body: "The score is calculated when the paper is submitted. There is no wait for a manual mark.",
   },
   {
     index: "05",
@@ -35,7 +53,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="scroll-mt-24 border-t border-foreground/10">
+    <section id="features" className="scroll-mt-24 border-t border-accent/10 bg-background">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <div className="max-w-2xl">
           <SectionHeading title="What a student can do in one sitting." />
@@ -45,10 +63,13 @@ export default function Features() {
           </p>
         </div>
 
-        <ul className="mt-12 grid gap-px bg-foreground/10 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <li key={feature.index} className="bg-background px-5 py-6 sm:px-6">
-              <p className="font-mono text-[11px] tracking-[0.16em] text-accent">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, i) => (
+            <li
+              key={feature.index}
+              className={`border px-5 py-6 sm:px-6 ${featureTones[i]}`}
+            >
+              <p className={`font-mono text-[11px] tracking-[0.16em] ${indexColors[i]}`}>
                 {feature.index}
               </p>
               <h3 className="mt-4 text-[1.15rem] tracking-tight text-foreground">

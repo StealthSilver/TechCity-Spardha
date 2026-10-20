@@ -114,7 +114,7 @@ export default function HeroPaper() {
       if (!reducedRef.current) {
         if (card) {
           card.style.transform = `rotateX(${pose.rx.toFixed(3)}deg) rotateY(${pose.ry.toFixed(3)}deg)`;
-          card.style.boxShadow = `${pose.sx.toFixed(2)}px ${pose.sy.toFixed(2)}px 80px rgba(59, 99, 196, ${Math.max(0, pose.alpha).toFixed(3)})`;
+          card.style.boxShadow = `${pose.sx.toFixed(2)}px ${pose.sy.toFixed(2)}px 80px rgba(47, 111, 237, ${Math.max(0, pose.alpha).toFixed(3)})`;
         }
         if (glare) {
           glare.style.opacity = String(Math.max(0, pose.glare));

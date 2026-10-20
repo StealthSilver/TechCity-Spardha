@@ -213,7 +213,7 @@ export default function Assessments() {
   return (
     <section
       id="assessments"
-      className="scroll-mt-24 border-t border-foreground/10"
+      className="scroll-mt-24 border-t border-accent/10 bg-background"
     >
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-10">

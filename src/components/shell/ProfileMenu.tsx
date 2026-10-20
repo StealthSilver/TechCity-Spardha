@@ -67,7 +67,7 @@ export function ProfileMenu() {
         <div
           id={menuId}
           role="menu"
-          className="absolute right-0 top-[calc(100%+0.55rem)] z-50 w-56 border border-foreground/10 bg-[#f7f5f1] py-1 shadow-[0_24px_48px_rgba(26,25,22,0.08)]"
+          className="absolute right-0 top-[calc(100%+0.55rem)] z-50 w-56 border border-foreground/10 bg-background py-1 shadow-[0_24px_48px_rgba(0,0,0,0.28)]"
         >
           <div className="border-b border-foreground/10 px-3 py-2.5">
             <p className="truncate text-sm text-foreground">{student.name}</p>

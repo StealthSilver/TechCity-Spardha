@@ -14,16 +14,29 @@ const links = [
   { href: "/#results", label: "Results" },
 ] as const;
 
+function readIsLight() {
+  if (typeof document === "undefined") return false;
+  return document.documentElement.dataset.theme === "light";
+}
+
 export function Navbar() {
   const { student, loading, openAuth, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [light, setLight] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sync = () => setLight(readIsLight());
+    sync();
+    window.addEventListener("spardha-theme", sync);
+    return () => window.removeEventListener("spardha-theme", sync);
   }, []);
 
   useEffect(() => {
@@ -37,15 +50,21 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-black/10 transition-colors duration-300 ${
-        scrolled || open ? "bg-white/85 backdrop-blur-xl" : "bg-[#f7f5f1]/90"
+      className={`sticky top-0 z-50 border-b border-foreground/15 transition-colors duration-300 [[data-theme=light]_&]:border-foreground/40 ${
+        scrolled || open
+          ? light
+            ? "bg-background/85 backdrop-blur-xl"
+            : "bg-background/80 backdrop-blur-xl"
+          : light
+            ? "bg-background/90"
+            : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:h-[4.25rem] sm:px-8">
         <Link
           href={student ? "/dashboard" : "/"}
-          className="flex shrink-0 items-baseline gap-2.5"
-          aria-label={student ? "Dashboard" : "Spardha home"}
+          className="flex shrink-0 items-center"
+          aria-label={student ? "Dashboard" : "Home"}
         >
           <Image
             src="/logo.png"
@@ -55,12 +74,9 @@ export function Navbar() {
             className="h-11 w-11 object-contain sm:h-12 sm:w-12"
             priority
           />
-          <span className="relative -translate-y-[6px] text-[21px] font-bold uppercase leading-none tracking-[0.16em] text-accent sm:text-[22px]">
-            Spardha
-          </span>
         </Link>
 
-        <div className="flex min-w-0 items-center justify-end gap-6 lg:gap-8">
+        <div className="flex min-w-0 items-center justify-end gap-5 lg:gap-8">
           <ul className="hidden items-center gap-6 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
@@ -110,7 +126,7 @@ export function Navbar() {
       </nav>
 
       <div
-        className={`absolute inset-x-0 top-full z-50 border-t border-foreground/10 bg-[#f7f5f1] shadow-[0_24px_48px_rgba(26,25,22,0.08)] transition-[max-height,opacity] duration-300 lg:hidden ${
+        className={`absolute inset-x-0 top-full z-50 border-t border-foreground/10 bg-background shadow-[0_24px_48px_rgba(0,0,0,0.28)] transition-[max-height,opacity] duration-300 lg:hidden ${
           open
             ? "max-h-[calc(100svh-4.25rem)] overflow-y-auto opacity-100"
             : "pointer-events-none max-h-0 overflow-hidden opacity-0"

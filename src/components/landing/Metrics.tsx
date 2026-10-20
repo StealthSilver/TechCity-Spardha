@@ -25,7 +25,7 @@ const outcomes = [
 
 export default function Metrics() {
   return (
-    <section id="results" className="scroll-mt-24 border-t border-foreground/10">
+    <section id="results" className="scroll-mt-24 border-t border-accent/10 bg-background">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <div className="max-w-2xl">
           <SectionHeading
@@ -39,27 +39,37 @@ export default function Metrics() {
           </p>
         </div>
 
-        <ul className="mt-12 border border-foreground/10">
-          {outcomes.map((item) => (
-            <li
-              key={item.label}
-              className="grid border-b border-foreground/10 last:border-b-0 sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:items-stretch"
-            >
-              <div className="flex items-center border-b border-foreground/10 bg-accent/[0.06] px-5 py-4 sm:border-b-0 sm:border-r sm:px-6">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
-                  {item.label}
-                </p>
-              </div>
-              <div className="px-5 py-5 sm:px-8 sm:py-8">
-                <h3 className="text-[1.2rem] leading-snug tracking-tight text-foreground sm:text-[1.35rem]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 max-w-2xl text-[15px] leading-7 text-foreground/65">
-                  {item.body}
-                </p>
-              </div>
-            </li>
-          ))}
+        <ul className="mt-12 overflow-hidden border border-accent/15">
+          {outcomes.map((item, i) => {
+            const tones = [
+              "bg-surface-tint text-accent",
+              "bg-surface-mint text-accent-secondary",
+              "bg-surface-warm text-accent-tertiary",
+              "bg-surface-tint text-accent",
+            ] as const;
+            return (
+              <li
+                key={item.label}
+                className="grid border-b border-accent/10 last:border-b-0 sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:items-stretch"
+              >
+                <div
+                  className={`flex items-center border-b border-accent/10 px-5 py-4 sm:border-b-0 sm:border-r sm:px-6 ${tones[i]}`}
+                >
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em]">
+                    {item.label}
+                  </p>
+                </div>
+                <div className="bg-background/70 px-5 py-5 sm:px-8 sm:py-8">
+                  <h3 className="text-[1.2rem] leading-snug tracking-tight text-foreground sm:text-[1.35rem]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 max-w-2xl text-[15px] leading-7 text-foreground/65">
+                    {item.body}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

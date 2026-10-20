@@ -4,6 +4,8 @@ import { AuthDialog } from "@/components/auth/AuthDialog";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import "./globals.css";
 
+const themeInit = `try{var t=localStorage.getItem("spardha-theme");document.documentElement.dataset.theme=t==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}`;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -83,17 +85,19 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f5f1",
-  colorScheme: "light",
+  themeColor: "#090b10",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <AuthProvider>
           {children}
           <AuthDialog />

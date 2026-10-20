@@ -1,3 +1,5 @@
+import ThemeToggle from "@/components/ThemeToggle";
+
 const links = [
   { href: "/#about", label: "About" },
   { href: "/#how-it-works", label: "Working" },
@@ -8,7 +10,7 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-foreground/10">
+    <footer className="border-t border-accent/10 bg-background">
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 py-12 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
         <a
           href="https://techcityskills.com"
@@ -25,7 +27,7 @@ export default function Footer() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/45 transition-colors hover:text-foreground"
+                  className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/50 transition-colors hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -43,12 +45,15 @@ export default function Footer() {
           >
             techcityskillspvt.ltd@gmail.com
           </a>
-          <a
-            href="tel:+919650657821"
-            className="transition-colors hover:text-foreground"
-          >
-            9650657821
-          </a>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ThemeToggle />
+            <a
+              href="tel:+919650657821"
+              className="transition-colors hover:text-foreground"
+            >
+              9650657821
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,4 +1,6 @@
-import type { ComponentType, CSSProperties } from "react";
+"use client";
+
+import { useEffect, useState, type ComponentType, type CSSProperties } from "react";
 import {
   Laptop,
   Padlock,
@@ -16,6 +18,13 @@ const figureStyle = {
   "--hairline-lo": "color-mix(in srgb, var(--foreground) 14%, var(--background))",
   "--hairline-stroke": "1.05",
 } as CSSProperties;
+
+const stepColors = [
+  "text-accent",
+  "text-accent-secondary",
+  "text-accent-tertiary",
+  "text-accent",
+] as const;
 
 const steps: {
   index: string;
@@ -55,26 +64,39 @@ const steps: {
 ];
 
 export default function HowItWorks() {
+  const [light, setLight] = useState(false);
+
+  useEffect(() => {
+    const sync = () =>
+      setLight(document.documentElement.dataset.theme === "light");
+    sync();
+    window.addEventListener("spardha-theme", sync);
+    return () => window.removeEventListener("spardha-theme", sync);
+  }, []);
+
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-24 border-t border-foreground/10"
+      className="scroll-mt-24 border-t border-accent/10 bg-background"
     >
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-[4.5rem]">
         <SectionHeading title="Four steps from the classroom to a score." />
 
-        <ol className="mt-12 grid gap-px bg-foreground/10 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <li key={step.index} className="flex flex-col bg-background">
+        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, i) => (
+            <li
+              key={step.index}
+              className="flex flex-col overflow-hidden border border-foreground/10 bg-background"
+            >
               <step.Figure
                 play
                 intensity={0.62}
-                theme="light"
+                theme={light ? "light" : "dark"}
                 label={step.label}
                 style={figureStyle}
               />
-              <div className="border-t border-foreground/10 px-5 py-6 sm:px-6">
-                <p className="font-mono text-[11px] tracking-[0.16em] text-accent">
+              <div className="border-t border-foreground/8 px-5 py-6 sm:px-6">
+                <p className={`font-mono text-[11px] tracking-[0.16em] ${stepColors[i]}`}>
                   {step.index}
                 </p>
                 <h3 className="mt-4 text-[1.15rem] tracking-tight text-foreground">
