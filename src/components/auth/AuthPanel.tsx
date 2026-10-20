@@ -106,11 +106,11 @@ export function AuthPanel({
   }
 
   return (
-    <div className="border border-foreground/10 bg-background/90 p-6 shadow-[0_24px_80px_rgba(59,99,196,0.08)] backdrop-blur-sm sm:p-8">
+    <div className="border border-foreground/10 bg-background/90 p-5 shadow-[0_24px_80px_rgba(59,99,196,0.08)] backdrop-blur-sm sm:p-8">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
         {view === "register" ? "Create account" : "Log in"}
       </p>
-      <h2 className="mt-3 text-[1.7rem] font-normal leading-[1.1] tracking-tight text-foreground">
+      <h2 className="mt-3 text-[1.45rem] font-normal leading-[1.1] tracking-tight text-foreground sm:text-[1.7rem]">
         {view === "register"
           ? "Start with your college details."
           : "Use your email and password."}
